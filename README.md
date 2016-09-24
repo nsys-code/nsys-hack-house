@@ -10,11 +10,11 @@
 
 ## Description
 
-The IoT dashboard showing data from sensors. The goal is to create an application showing metrics 
-from various sensors (humidity, temperature etc) located in a smart home and/or building. 
-Based on collected data the dashboard can provide analytic and predictions data such as energy saving, 
-house happiness etc. Access to external data for dashboard is based on adapters where an individual 
-adapter is providing access to data from particular vendor and/or IoT platform.
+The Nsys #HackTheHouse is an IoT dashboard showing data from sensors. The goal is to create an application 
+showing metrics from the various sensors (humidity, temperature etc) located in a smart home and/or building. 
+Based on collected data the dashboard can provide analytic and predictions data such as energy saving, house 
+happiness etc. Access to external data for dashboard is provided by adapter that is responsible for 
+the integration with the external platform of the 3rd party such as vendor specific system or another IoT platform.
 
 The Nsys #HackTheHouse implementation is based on the [Nsys Platform](http://www.nsys.org).
 

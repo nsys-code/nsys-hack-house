@@ -24,7 +24,7 @@ The Nsys #HackTheHouse implementation is based on the [Nsys Platform](http://www
  * ./build.sh
  * ./run-portal.sh
  * vi nsys-hack-house-bundle/target/nsys-hack-house/logs/nsys-hack-house-portal.log
- * Browse to [http://localhost:9160](http://localhost:9160). Check up live demo at [http://hack-house.nsys.org](http://hack-house.nsys.org)!
+ * Browse to [http://localhost:9260](http://localhost:9260). Check up live demo at [http://hack-house.nsys.org](http://hack-house.nsys.org)!
  * Use default user "admin" and password "admin" to login
 
 

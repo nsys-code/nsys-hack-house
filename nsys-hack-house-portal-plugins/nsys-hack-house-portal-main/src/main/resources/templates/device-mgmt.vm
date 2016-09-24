@@ -1,1 +1,49 @@
-<p>test...</p>
+$portalResourceManager.requireResourcesForContext("nsys.hackhouse.device-management")
+
+#parse ("macros.vm")
+
+#if ($!{deviceAddSuccess})
+	#showMessage("success", "Success!", $!{deviceAddMessage}, true)
+
+#elseif ($!{deviceAddFailed})
+	#showMessage("error", "Adding device has failed!", $!{deviceAddMessage}, true)
+#end
+
+<table class="aui">
+	<thead>
+		<tr>
+			<th>Protocol</th>
+			<th>Name</th>
+			<th>Host</th>
+            <th>Port</th>
+            <th>API Key</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+   	<tbody>
+        #foreach ($device in $devices)
+		#set ($msgRemove = "Are you really sure you want to remove the device '$!{device.name}'?")
+        <tr>
+            <td><span class="aui-lozenge aui-lozenge-subtle">$!{device.protocol}</span></td>
+            <td>$!{device.name}</td>
+            <td><span class="aui-lozenge aui-lozenge-current aui-lozenge-subtle">$!{device.host}</span></td>
+            <td><span class="aui-lozenge aui-lozenge-success aui-lozenge-subtle">$!{device.port}</span></td>
+            <td>$!{device.apiKey}</td>
+            <td>
+            	<a href="$!{request.contextPath}/device/$!{device.id}/edit"
+				   class="portal-dialog"
+				   data-dialog-width="600"
+				   data-dialog-height="480">
+					<span class="aui-lozenge aui-lozenge-current">Edit</span></a>
+            	<a href="$!{request.contextPath}/device/$!{device.id}/remove"
+            	   class="portal-dialog2"
+            	   data-dialog-size="medium"
+            	   data-dialog-title="Remove Device"
+            	   data-dialog-button="Remove Device"
+            	   data-dialog-style="portal-dialog2-red">
+            		<span class="aui-lozenge aui-lozenge-error">Remove</span><div class="portal-dialog2-content"><p>$!{msgRemove}</p></div></a>
+            </td>
+        </tr>
+        #end
+    </tbody>
+</table>

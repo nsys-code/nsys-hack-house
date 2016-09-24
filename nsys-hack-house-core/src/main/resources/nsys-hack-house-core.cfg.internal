@@ -1,0 +1,2 @@
+# Internal configuration file for nsys-hack-house-core
+nsys.hackhouse.core.version=${build.number}

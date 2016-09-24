@@ -6,9 +6,15 @@ package org.nsys.iot.hackhouse.portal.webapp.plugin;
 import org.nsys.event.Event;
 import org.nsys.plugin.PluginContext;
 import org.nsys.daemon.event.SystemStartedEvent;
+import org.nsys.daemon.host.DatabaseManager;
 import org.nsys.daemon.plugin.AbstractManagementAgentPlugin;
+import org.nsys.daemon.repository.DataRepositoryConfig;
+import org.nsys.daemon.utils.NsysDaemonUtils;
 import org.nsys.portal.event.PortalStartedEvent;
+import org.nsys.system.ServiceProvider;
 
+import org.nsys.iot.hackhouse.core.CoreConfig;
+import org.nsys.iot.hackhouse.core.repository.DeviceService;
 import org.nsys.iot.hackhouse.portal.webapp.PortalConfig;
 
 /**
@@ -23,11 +29,22 @@ public class PortalPlugin extends AbstractManagementAgentPlugin {
 	public void load(PluginContext context) {
 		getLog().debugFormat("Starting plugin %s", getName());
 		PortalConfig.loadConfig();
+
+		DatabaseManager dbManager = ServiceProvider.getInstance().getServiceHost(DatabaseManager.class);
+		DataRepositoryConfig config = dbManager.newRepositoryConfig(CoreConfig.REPOSITORY_NAME, getClass().getClassLoader());
+		dbManager.addRepositoryConfig(CoreConfig.REPOSITORY_NAME, config);
+
+		DeviceService deviceService = new DeviceService();
+
+		NsysDaemonUtils.addGlobalComponent(DeviceService.class, deviceService);
 	}
 
 	@Override
 	public void unload(PluginContext context) {
 		getLog().debugFormat("Stopped plugin %s", getName());
+
+		DatabaseManager dbManager = ServiceProvider.getInstance().getServiceHost(DatabaseManager.class);
+		dbManager.removeRepositoryConfig(CoreConfig.REPOSITORY_NAME);
 	}
 
 	@Override

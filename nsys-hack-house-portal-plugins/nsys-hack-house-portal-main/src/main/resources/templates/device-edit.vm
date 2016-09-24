@@ -1,0 +1,49 @@
+#set ($port = $!{device.port})
+
+#if (!$!{port})
+	#set ($port = $!{defaultPort})
+#end
+
+<form id="device-edit" action="$!{request.contextPath}/device/$!{action}" method="POST" class="aui">
+	<div class="field-group">
+		<label for="protocol">Protocol</label>
+		<select class="select short-field" id="protocol" name="protocol" title="Protocol Select">
+			#foreach ($p in $protocols)
+				<option value="$!{p}" #if ($!{p} == $!{device.protocol}) selected #end>$!{p}</option>
+			#end
+		</select>
+	</div>
+	<div class="field-group">
+		<label for="name">Name<span class="aui-icon icon-required"> (required)</span></label>
+		<input class="text medium-field" type="text" id="name" name="name" title="Name" value="$!{device.name}" #if ($!{action} == "update") disabled #end>
+		<div class="error" id="errorName" style="display:none"></div>
+		<div class="description">The unique name of the device (numbers and alphabets only)</div>
+	</div>
+	<div class="field-group">
+		<label for="host">Host<span class="aui-icon icon-required"> (required)</span></label>
+		<input class="text medium-field" type="text" id="host" name="host" title="Host" value="$!{device.host}">
+		<div class="error" id="errorHost" style="display:none"></div>
+		<div class="description">The host of the device (for example "localhost" or "192.168.1.10")</div>
+	</div>
+	<div class="field-group">
+		<label for="host">Port</label>
+		<input class="text short-field" type="text" id="port" name="port" title="Port" value="$!{port}">
+		<div class="error" id="errorPort" style="display:none"></div>
+		<div class="description">The port of the device (if unspecified, the port $!{defaultPort} will be used)</div>
+	</div>
+	<div class="field-group">
+		<label for="host">API Key<span class="aui-icon icon-required"> (required)</span></label>
+		<input class="text long-field" type="text" id="apiKey" name="apiKey" title="API Key" value="$!{device.apiKey}">
+		<div class="error" id="errorApiKey" style="display:none"></div>
+		<div class="description">Personal access token for API authentication</div>
+	</div>
+    <div class="buttons-container">
+    	<input class="aui-button aui-button-primary submit" type="submit" value="$!{actionButton}" id="btnSubmit">
+    </div>
+    <input name="redir" type="hidden" value="$!{redir}" />
+    <input name="id" type="hidden" value="$!{device.id}" />
+
+	#if ($!{action} == "update")
+		<input name="name" type="hidden" value="$!{device.name}" />
+	#end
+</form>

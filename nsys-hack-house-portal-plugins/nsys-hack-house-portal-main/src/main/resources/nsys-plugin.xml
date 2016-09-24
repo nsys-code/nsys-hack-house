@@ -196,17 +196,23 @@
 		<label>#HackTheHouse Header Actions</label>
 	</navigation-section>
 
-	<navigation-item key="nsys-hack-house_hackhouse-header-actions_dashboard" name="System Dashboard" section="hackhouse.header.actions" weight="0">
-		<label>System Dashboard</label>
-		<link>/dashboard</link>
-	</navigation-item>
-
-	<navigation-item key="nsys-hack-house_hackhouse-header-actions_admin" name="Administration" section="hackhouse.header.actions" weight="0">
-		<label>Administration</label>
-		<link>/admin</link>
+	<navigation-item key="nsys-hack-house_hackhouse-header-actions_add-device" name="Add Device" section="hackhouse.header.actions" weight="0">
+		<label>Add Device</label>
+		<link>/device/add</link>
+		<styleClass>portal-dialog</styleClass>
+		<param name="portalDialog">data-dialog-width="600" data-dialog-height="480"</param>
 	</navigation-item>
 
     <!-- Navigation 'hackhouse.header.actions' [END] -->    
+
+    <!-- Nsys #HackTheHouse Web Resources [BEGIN] -->
+
+	<portal-resource key="nsys-hack-house_hackhouse-device-mgmt-resources" name="Device Management Web Resources">
+		<context>nsys.hackhouse.device-management</context>
+		<resource type="download" name="device-management.js" location="/resources/js/device-management.js" />
+	</portal-resource>
+
+    <!-- Nsys #HackTheHouse Web Resources [END] -->
 
     <!-- Nsys Portal Administration Gadgets [BEGIN] -->
     

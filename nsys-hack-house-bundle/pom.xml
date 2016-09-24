@@ -8,7 +8,7 @@
 
 	<parent>
 		<artifactId>nsys-hack-house</artifactId>
-		<groupId>org.nsys</groupId>
+		<groupId>org.nsys.iot</groupId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
@@ -108,6 +108,9 @@
         						<copy file="${project.basedir}/target/classes/database.h2.properties.dist" tofile="${project.basedir}/target/${nsys.dist.name}/conf/database-portal.properties" overwrite="true" />
 								<copy file="${project.basedir}/src/main/resources/tomcat/server.xml" todir="${project.basedir}/target/${nsys.dist.name}/portal/conf" overwrite="true" />
 
+								<!-- Copy JAR files to folder /lib -->
+								<copy file="${project.basedir}/../nsys-hack-house-core/target/nsys-hack-house-core.jar" todir="${project.basedir}/target/${nsys.dist.name}/lib" />
+
 								<!-- Copy Nsys Daemon plugins to folder /plugins -->
 								<!-- <copy file="${project.basedir}/../nsys-hack-house-daemon-plugins/nsys-hack-house-collector/target/nsys-hack-house-collector.jar" todir="${project.basedir}/target/${nsys.dist.name}/plugins" /> -->
 
@@ -116,6 +119,9 @@
 
         						<chmod dir="${project.basedir}/target/${nsys.dist.name}/bin" perm="755" includes="*.sh" />
         						<chmod dir="${project.basedir}/target/${nsys.dist.name}/portal/bin" perm="755" includes="*.sh" />
+
+								<!-- Copy Nsys #HackTheHouse Portal dependencies to folder /portal/webapps -->
+								<copy file="${project.basedir}/../nsys-hack-house-core/target/nsys-hack-house-core.jar" todir="${project.basedir}/target/${nsys.dist.name}/portal/webapps/nsys-portal-webapp/WEB-INF/lib" />
 
 								<!-- Create bundle package -->
 								<zip basedir="${project.basedir}/target/${nsys.dist.name}/" destfile="${project.basedir}/target/${nsys.dist.name}-bundle-${build.number}.zip" encoding="UTF8" />

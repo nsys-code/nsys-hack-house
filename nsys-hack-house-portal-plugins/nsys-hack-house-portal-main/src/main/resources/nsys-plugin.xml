@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nsys-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugin-version="1">
+
+    <!-- Plugin Info -->
+
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${build.number}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}" />
+	</plugin-info>
+
+	<!-- Plugin Modules -->
+
+	<management-agent key="nsys-hack-house-portal" name="Nsys #HackTheHouse Portal" class="org.nsys.iot.hackhouse.portal.webapp.plugin.PortalPlugin">
+		<dependency>org.nsys.daemon:scheduler</dependency>
+	</management-agent>
+
+	<api key="nsys-hack-house_api" name="Nsys Demo Public API" path="/hack-house" version="v1" configLocation="META-INF/cxf/apiContext.xml">
+		<description>Provides Nsys #HackTheHouse public services.</description>
+	</api>
+
+    <!-- Navigation 'system.top.navigation.appswitcher' [BEGIN] -->
+
+	<navigation-item key="nsys-portal_appswitcher_jira" name="Nsys Jira" section="system.top.navigation.appswitcher" weight="0">
+		<label>JIRA</label>
+		<link>https://jira.nsys.org</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_appswitcher_confluence" name="Nsys Confluence" section="system.top.navigation.appswitcher" weight="0">
+		<label>Confluence</label>
+		<link>http://confluence.nsys.org</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_appswitcher_teamcity" name="Nsys TeamCity" section="system.top.navigation.appswitcher" weight="0">
+		<label>TeamCity</label>
+		<link>https://teamcity.nsys.org</link>
+	</navigation-item>
+
+    <!-- Navigation 'system.top.navigation.appswitcher' [END] -->
+
+    <!-- Main Navigation [BEGIN] -->
+    
+	<navigation-section key="nsys-portal_nav-main_getstarted" name="Get Started" location="system.top.navigation.bar/getstarted" weight="0">
+		<label>Get Started</label>
+	</navigation-section>
+	
+	<navigation-item key="nsys-portal_nav-main_getstarted_overview" name="Nsys Overview" section="system.top.navigation.bar/getstarted" weight="0">
+		<label>Nsys Overview</label>
+		<link>http://www.nsys.org</link>
+	</navigation-item>
+
+	<navigation-section key="nsys-portal_nav-main_dashboards" name="Dashboards" location="system.top.navigation.bar/dashboards" weight="0">
+		<label>Dashboards</label>
+		<description>View and manage your dashboards</description>
+	</navigation-section>
+	
+	<navigation-item key="nsys-portal_nav-main_dashboards_view" name="View System Dashboard" section="system.top.navigation.bar/dashboards" weight="0">
+		<label>View System Dashboard</label>
+		<link>/dashboard</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_nav-main_dashboards_manage" name="Manage Dashboards" section="system.top.navigation.bar/dashboards" weight="0">
+		<label>Manage Dashboards</label>
+		<link>/dashboard/manage</link>
+		<conditions>
+			<condition class="org.nsys.portal.conditions.UserIsLoggedInCondition" />
+		</conditions>
+	</navigation-item>
+
+	<navigation-section key="nsys-portal_nav-main_reports" name="Reports" location="system.top.navigation.bar/reports" weight="0">
+		<label>Reports</label>
+	</navigation-section>
+
+	<navigation-item key="nsys-portal_nav-main_reports_sample" name="Sample Report" section="system.top.navigation.bar/reports" weight="0">
+		<label>Temperature Report</label>
+		<link>/report/temperature</link>
+		<conditions>
+			<condition class="org.nsys.portal.conditions.UserIsLoggedInCondition" />
+		</conditions>
+	</navigation-item>
+
+	<navigation-section key="nsys-portal_nav-main_system" name="System" location="system.top.navigation.bar/system" weight="0">
+		<label>System</label>
+		<description>Nsys Platform Management</description>
+	</navigation-section>
+
+	<navigation-item key="nsys-portal_nav-main_system_infra-mgmt" name="Nsys Infrastructure Manager" section="system.top.navigation.bar/system" weight="0">
+		<label>Infrastructure Manager</label>
+		<link>/nim</link>
+		<conditions>
+			<condition class="org.nsys.portal.conditions.UserIsLoggedInCondition" />
+		</conditions>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_nav-main_system_pp-mgmt" name="Manage Portal Panels" section="system.top.navigation.bar/system" weight="0">
+		<label>Manage Portal Panels</label>
+		<link>/pp/manage</link>
+		<conditions>
+			<condition class="org.nsys.portal.conditions.UserIsLoggedInCondition" />
+		</conditions>
+	</navigation-item>
+
+    <!-- Main Navigation [END] -->
+
+    <!-- Navigation 'footer.links' [BEGIN] -->
+
+	<navigation-item key="nsys-portal_footer-links_issues" name="Nsys Issues" section="footer.links" weight="0">
+		<label>Issues</label>
+		<link>https://jira.nsys.org/browse/NSYS</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_footer-links_builds" name="Nsys Builds" section="footer.links" weight="0">
+		<label>Builds</label>
+		<link>https://teamcity.nsys.org</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-portal_footer-links_doc" name="Nsys Documentation" section="footer.links" weight="0">
+		<label>Documentation</label>
+		<link>http://doc.nsys.org/display/NSYS</link>
+	</navigation-item>
+
+    <!-- Navigation 'footer.links' [END] -->
+
+    <!-- Navigation 'header.links/help' [BEGIN] -->
+
+	<navigation-item key="nsys-portal_header-links_help_nsys-platform" name="Nsys Platform Help" section="header.links/help" weight="0">
+		<label>Nsys Platform</label>
+		<link>http://doc.nsys.org/display/NSYS</link>
+	</navigation-item>
+	
+	<navigation-item key="nsys-portal_header-links_help_nsys-daemon" name="Nsys Daemon Help" section="header.links/help" weight="0">
+		<label>Nsys Daemon</label>
+		<link>http://doc.nsys.org/display/NSYS/Nsys+Daemon</link>
+	</navigation-item>
+	
+	<navigation-item key="nsys-portal_header-links_help_nsys-portal" name="Nsys Portal Help" section="header.links/help" weight="0">
+		<label>Nsys Portal</label>
+		<link>http://doc.nsys.org/display/NSYS/Nsys+Portal</link>
+	</navigation-item>
+	
+	<navigation-item key="nsys-portal_header-links_help_nsys-terminal" name="Nsys Terminal Help" section="header.links/help" weight="0">
+		<label>Nsys Terminal</label>
+		<link>http://doc.nsys.org/display/NSYS/Nsys+Terminal</link>
+	</navigation-item>
+	
+	<navigation-item key="nsys-portal_header-links_help_nsys-api" name="Nsys API Help" section="header.links/help" weight="0">
+		<label>Nsys Remote API Reference</label>
+		<link>http://doc.nsys.org/display/NSYS/Nsys+Remote+API+Reference</link>
+	</navigation-item>
+
+    <!-- Navigation 'header.links/help' [END] -->
+
+    <!-- Navigation 'system.report/general' [BEGIN] -->
+
+    <navigation-section key="nsys-portal_reports-available" name="Available Reports Navigation" location="system.report/general" weight="0">
+		<label>Available Reports</label>
+	</navigation-section>
+
+    <navigation-item key="nsys-portal_reports-available_sample" name="Sample Report" section="system.report/general" weight="0">
+		<label>Temperature Report</label>
+		<link>/report/temperature</link>
+	</navigation-item>
+
+    <!-- Navigation 'system.report/general' [END] -->
+
+    <!-- Navigation 'report.header.actions' [BEGIN] -->
+
+	<navigation-section key="nsys-portal_report-header-actions" name="Report Header Actions" location="report.header.actions" weight="0">
+		<label>Report Header Actions</label>
+	</navigation-section>
+
+	<navigation-item key="nsys-portal_report-header-actions_export" name="Export" section="report.header.actions" weight="0">
+		<label>Export</label>
+		<link>/report/export</link>
+	</navigation-item>
+
+    <!-- Navigation 'report.header.actions' [END] -->
+
+    <!-- Navigation 'system.admin/hackhouse' [BEGIN] -->
+
+	<navigation-section key="nsys-hack-house-portal_admin-hackhouse" name="Add-ons Administration Navigation" location="system.admin/hackhouse" weight="1000">
+		<label>#HackTheHouse</label>
+	</navigation-section>
+
+	<navigation-item key="nsys-hack-house-portal_device-mgmt" name="Device Management" section="system.admin/hackhouse" weight="0">
+		<label>Device Management</label>
+		<link>/device/management</link>
+	</navigation-item>
+
+    <!-- Navigation 'system.admin/hackhouse' [END] -->
+
+    <!-- Navigation 'hackhouse.header.actions' [BEGIN] -->
+
+	<navigation-section key="nsys-hack-house_hackhouse-header-actions" name="#HackTheHouse Header Actions" location="hackhouse.header.actions" weight="0">
+		<label>#HackTheHouse Header Actions</label>
+	</navigation-section>
+
+	<navigation-item key="nsys-hack-house_hackhouse-header-actions_dashboard" name="System Dashboard" section="hackhouse.header.actions" weight="0">
+		<label>System Dashboard</label>
+		<link>/dashboard</link>
+	</navigation-item>
+
+	<navigation-item key="nsys-hack-house_hackhouse-header-actions_admin" name="Administration" section="hackhouse.header.actions" weight="0">
+		<label>Administration</label>
+		<link>/admin</link>
+	</navigation-item>
+
+    <!-- Navigation 'hackhouse.header.actions' [END] -->    
+
+    <!-- Nsys Portal Administration Gadgets [BEGIN] -->
+    
+    <admin-gadget key="nsys-hack-house-portal_admin-gadget_general" name="General Admin Gadget" class="org.nsys.portal.webapp.admin.gadget.GeneralGadget">
+    	<description>Provides an overview for the General gadget.</description>
+    	<label>General</label>
+    	<column>left</column>
+    	<order>0</order>
+    </admin-gadget>
+
+    <admin-gadget key="nsys-hack-house-portal_admin-gadget_accounts" name="Accounts Admin Gadget" class="org.nsys.portal.webapp.admin.gadget.AccountsGadget">
+    	<description>Provides an overview for the Accounts gadget.</description>
+    	<label>Accounts</label>
+    	<column>right</column>
+    	<order>0</order>
+    </admin-gadget>
+    
+    <admin-gadget key="nsys-hack-house-portal_admin-gadget-hackhouse" name="#HackTheHouse Admin Gadget" class="org.nsys.iot.hackhouse.portal.webapp.gadget.HackHouseGadget">
+    	<description>Provides an overview for the #HackTheHouse gadget.</description>
+    	<label>#HackTheHouse</label>
+    	<column>left</column>
+    	<order>1</order>
+    </admin-gadget>
+
+    <!-- Nsys Portal Administration Gadgets [END] -->
+
+    <!-- Dashboard Gadgets [BEGIN] -->
+
+    <dashboard-gadget key="nsys-hack-house-portal_dashboard-system_devices" name="Device Gadget" class="org.nsys.iot.hackhouse.portal.webapp.gadget.DeviceGadget">
+    	<description>Provides a list of connected devices.</description>
+    	<label>Devices</label>
+    	<column>left</column>
+    	<order>0</order>
+    	<view>system</view>
+    </dashboard-gadget>
+    
+    <dashboard-gadget key="nsys-hack-house-portal_dashboard-system_devices2" name="Device Gadget 2" class="org.nsys.iot.hackhouse.portal.webapp.gadget.DeviceGadget">
+    	<description>Provides a list of connected devices.</description>
+    	<label>Devices</label>
+    	<column>left</column>
+    	<order>0</order>
+    	<view>system</view>
+    </dashboard-gadget>
+    
+    <dashboard-gadget key="nsys-hack-house-portal_dashboard-system_devices3" name="Device Gadget 3" class="org.nsys.iot.hackhouse.portal.webapp.gadget.DeviceGadget">
+    	<description>Provides a list of connected devices.</description>
+    	<label>Devices</label>
+    	<column>left</column>
+    	<order>0</order>
+    	<view>system</view>
+    </dashboard-gadget>
+    
+    <dashboard-gadget key="nsys-hack-house-portal_dashboard-system_devices4" name="Device Gadget 4" class="org.nsys.iot.hackhouse.portal.webapp.gadget.DeviceGadget">
+    	<description>Provides a list of connected devices.</description>
+    	<label>Devices</label>
+    	<column>right</column>
+    	<order>0</order>
+    	<view>system</view>
+    </dashboard-gadget>
+    
+    <dashboard-gadget key="nsys-hack-house-portal_dashboard-system_devices5" name="Device Gadget 5" class="org.nsys.iot.hackhouse.portal.webapp.gadget.DeviceGadget">
+    	<description>Provides a list of connected devices.</description>
+    	<label>Devices</label>
+    	<column>right</column>
+    	<order>0</order>
+    	<view>system</view>
+    </dashboard-gadget>
+    
+    <!-- Dashboard Gadgets [END] -->
+
+</nsys-plugin>

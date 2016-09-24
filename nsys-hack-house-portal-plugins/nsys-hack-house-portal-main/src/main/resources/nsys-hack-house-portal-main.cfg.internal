@@ -1,0 +1,2 @@
+# Internal configuration file for nsys-hack-house-portal-main
+nsys.hackhouse.portal.main.version=${build.number}

@@ -33,6 +33,6 @@
     </scm>
 
     <modules>
-        <!-- <module>nsys-hack-house-portal-main</module> -->
+        <module>nsys-hack-house-portal-main</module>
     </modules>
 </project>

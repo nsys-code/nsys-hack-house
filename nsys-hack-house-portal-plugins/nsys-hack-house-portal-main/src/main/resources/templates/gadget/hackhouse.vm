@@ -1,0 +1,11 @@
+$portalResourceManager.requireResourcesForContext("nsys.portal.admin")
+
+<section class="admin-section">
+	<h3>$!{gadget.displayName}</h3>
+	<ul class="overview-links">
+		<li>
+			<a href="/device/management" id="hackhouse-device-mgmt" title="#HackTheHouse Device Management">Device Management</a>
+			<span class="description">#HackTheHouse Device Management</span>
+		</li>
+	</ul>
+</section>

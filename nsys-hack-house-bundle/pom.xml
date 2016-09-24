@@ -112,7 +112,7 @@
 								<!-- <copy file="${project.basedir}/../nsys-hack-house-daemon-plugins/nsys-hack-house-collector/target/nsys-hack-house-collector.jar" todir="${project.basedir}/target/${nsys.dist.name}/plugins" /> -->
 
 								<!-- Copy Nsys Portal plugins to folder /portal/plugins -->
-								<!-- <copy file="${project.basedir}/../nsys-hack-house-portal-plugins/nsys-hack-house-portal-main/target/nsys-hack-house-portal-main.jar" todir="${project.basedir}/target/${nsys.dist.name}/portal/plugins" /> -->
+								<copy file="${project.basedir}/../nsys-hack-house-portal-plugins/nsys-hack-house-portal-main/target/nsys-hack-house-portal-main.jar" todir="${project.basedir}/target/${nsys.dist.name}/portal/plugins" />
 
         						<chmod dir="${project.basedir}/target/${nsys.dist.name}/bin" perm="755" includes="*.sh" />
         						<chmod dir="${project.basedir}/target/${nsys.dist.name}/portal/bin" perm="755" includes="*.sh" />

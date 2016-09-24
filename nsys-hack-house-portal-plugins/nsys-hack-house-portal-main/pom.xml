@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>nsys-hack-house-portal-plugins</artifactId>
+		<groupId>org.nsys.iot.hackhouse.portal</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+    <groupId>org.nsys.iot.hackhouse.portal.plugins</groupId>
+    <artifactId>nsys-hack-house-portal-main</artifactId>
+    <name>Nsys #HackTheHouse Portal Main Plugin</name>
+    <description>Main Plugin for Nsys #HackTheHouse Portal</description>
+    <packaging>nsys-plugin</packaging>
+    <url>http://nsys.org</url>
+
+	<organization>
+		<name>Nsys</name>
+		<url>http://www.nsys.org</url>
+	</organization>
+  
+	<issueManagement>
+    	<system>JIRA</system>
+    	<url>https://jira.nsys.org/browse/NSYS</url>
+    </issueManagement>
+    
+    <scm>
+    	<connection>scm:git:https://github.com/xboot-dev/nsys-hack-house.git</connection>
+    </scm>
+
+	<repositories>
+		<repository>
+			<id>nsys-dev-repository</id>
+			<name>The Nsys Development Repository</name>
+			<url>http://maven.nsys.org/repository/releases</url>
+		</repository>
+		<repository>
+			<id>nsys-dev-repository-snapshots</id>
+			<name>The Nsys Development Repository - Snapshots</name>
+			<url>http://maven.nsys.org/repository/snapshots</url>
+		</repository>
+  	</repositories>
+  	
+	<dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Nsys dependencies -->
+        <dependency>
+			<groupId>org.nsys</groupId>
+			<artifactId>nsys-core</artifactId>
+			<version>${nsys.version}</version>
+            <scope>provided</scope>
+		</dependency>
+        <dependency>
+			<groupId>org.nsys.portal</groupId>
+			<artifactId>nsys-portal</artifactId>
+			<version>${nsys.version}</version>
+            <scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <!--
+            	maven-lifecycle problem with jira-maven-plugin and eclipse
+            	https://answers.atlassian.com/questions/61736/maven-lifecycle-problem-with-jira-maven-plugin-and-eclipse-3-7 
+             -->
+            <plugin>
+            	<groupId>org.nsys.maven.plugins</groupId>
+				<artifactId>nsys-maven-plugin</artifactId>
+                <version>${nsys.nmps.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                	<productName>nsys-portal</productName>
+                	<productVersion>${nsys.version}</productVersion>
+                	<buildNumber>${build.number}</buildNumber> <!-- ${build.number}=${build.version}.${build.counter} -->
+                	<jvmArgs>-Dnsys.hackhouse.portal.debug=false</jvmArgs>
+                	<nsysConfigPath>${project.basedir}/conf/nsys-portal.cfg</nsysConfigPath>
+                	<!-- <log4jConfigPath>${project.build.directory}/container/nsys1x/conf/log4j-portal.xml</log4jConfigPath> -->
+                	<bundleEntries>
+                		<Bundle-Name>${project.artifactId}</Bundle-Name>
+                	</bundleEntries>
+                	<manifestEntries>
+                		<Application-Name>${project.name}</Application-Name>
+						<Nsys-Portal-ApplicationContext>main</Nsys-Portal-ApplicationContext>
+						<Nsys-Portal-ApplicationContext-Name>nsys-hack-house</Nsys-Portal-ApplicationContext-Name>
+                	</manifestEntries>
+                </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    	<resources>
+    		<resource>
+    			<directory>src/main/resources</directory>
+    			<filtering>true</filtering>
+    		</resource>
+    	</resources>        
+    </build>
+
+    <properties>
+        <build.number>1.0.0.0</build.number>
+		<java.version>1.7</java.version>
+        <junit.version>4.11</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <nsys.version>1.0.0-SNAPSHOT</nsys.version>
+        <nsys.nmps.version>1.0.0-SNAPSHOT</nsys.nmps.version>
+	</properties>
+
+</project>

@@ -42,6 +42,8 @@ $portalResourceManager.requireResourcesForContext("nsys.hackhouse.device-managem
             	   data-dialog-button="Remove Device"
             	   data-dialog-style="portal-dialog2-red">
             		<span class="aui-lozenge aui-lozenge-error">Remove</span><div class="portal-dialog2-content"><p>$!{msgRemove}</p></div></a>
+            	<a href="$!{request.contextPath}/device/$!{device.id}/sensors">
+					<span class="aui-lozenge aui-lozenge-complete">Sensors</span></a>
             </td>
         </tr>
         #end

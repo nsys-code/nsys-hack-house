@@ -18,7 +18,7 @@
 
 	<sensor-adapter key="virtual-sensor-temperature-humidity"
 		name="Virtual Temperature and Humidity Sensor"
-		class="org.nsys.iot.hackhouse.adapter.virtualsensors.driver.TemperatureHumidityAdapterDriver"
+		class="org.nsys.iot.hackhouse.adapter.virtualsensors.sensor.TemperatureHumiditySensorAdapter"
 		enabled="true"
 		override="false">
 		<description>Virtual temperature and humidity sensor for testing and verification.</description>

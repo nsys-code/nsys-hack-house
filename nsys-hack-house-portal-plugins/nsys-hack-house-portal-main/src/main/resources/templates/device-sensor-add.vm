@@ -1,0 +1,14 @@
+<form id="device-sensor-add" action="$!{request.contextPath}/device/$!{deviceId}/sensors/add" method="POST" class="aui">
+	<div class="field-group">
+		<label for="protocol">Available Sensors</label>
+		<select class="select long-field" id="sensor" name="sensor" title="Sensor Select">
+			#foreach ($sensor in $sensors)
+				<option value="$!{sensor.name}">$!{sensor.label}</option>
+			#end
+		</select>
+	</div>
+    <div class="buttons-container">
+    	<input class="aui-button aui-button-primary submit" type="submit" value="Add" id="btnSubmit">
+    </div>
+    <input name="redir" type="hidden" value="$!{redir}" />
+</form>

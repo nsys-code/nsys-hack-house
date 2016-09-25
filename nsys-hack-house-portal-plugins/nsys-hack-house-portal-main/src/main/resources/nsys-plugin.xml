@@ -210,6 +210,21 @@
 
     <!-- Navigation 'hackhouse.header.actions.device-mgmt' [END] -->    
 
+    <!-- Navigation 'hackhouse.header.actions.device-sensor-mgmt' [BEGIN] -->
+
+	<navigation-section key="nsys-hack-house_hackhouse-header-actions-device-sensor-mgmt" name="#HackTheHouse Header Actions for Device Management" location="hackhouse.header.actions.device-sensor-mgmt" weight="0">
+		<label>#HackTheHouse Header Actions for Device Sensor Management</label>
+	</navigation-section>
+
+	<navigation-item key="nsys-hack-house_hackhouse-header-actions-device-sensor-mgmt_add-sensor" name="Add Sensor" section="hackhouse.header.actions.device-sensor-mgmt" weight="0">
+		<label>Add Sensor</label>
+		<link>/device/${deviceId}/sensors/add</link>
+		<styleClass>portal-dialog</styleClass>
+		<param name="portalDialog">data-dialog-width="600" data-dialog-height="240"</param>
+	</navigation-item>
+
+    <!-- Navigation 'hackhouse.header.actions.device-sensor-mgmt' [END] -->    
+
     <!-- Nsys #HackTheHouse Web Resources [BEGIN] -->
 
 	<portal-resource key="nsys-hack-house_hackhouse-device-mgmt-resources" name="Device Management Web Resources">

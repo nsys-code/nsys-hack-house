@@ -14,6 +14,7 @@ import org.nsys.portal.event.PortalStartedEvent;
 import org.nsys.system.ServiceProvider;
 
 import org.nsys.iot.hackhouse.core.CoreConfig;
+import org.nsys.iot.hackhouse.core.repository.DeviceSensorService;
 import org.nsys.iot.hackhouse.core.repository.DeviceService;
 import org.nsys.iot.hackhouse.core.repository.SensorService;
 import org.nsys.iot.hackhouse.core.sensor.SensorManager;
@@ -63,10 +64,12 @@ public class PortalPlugin extends AbstractManagementAgentPlugin {
 
 	protected void addComponents() {
 		DeviceService deviceService = new DeviceService();
+		DeviceSensorService deviceSensorService = new DeviceSensorService();
 		SensorService sensorService = new SensorService();
 		SensorManager sensorManager = new SensorManagerImpl();
 
 		NsysDaemonUtils.addGlobalComponent(DeviceService.class, deviceService);
+		NsysDaemonUtils.addGlobalComponent(DeviceSensorService.class, deviceSensorService);
 		NsysDaemonUtils.addGlobalComponent(SensorService.class, sensorService);
 		NsysDaemonUtils.addGlobalComponent(SensorManager.class, sensorManager);
 	}

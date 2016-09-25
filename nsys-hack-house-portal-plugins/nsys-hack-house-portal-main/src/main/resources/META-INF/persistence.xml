@@ -11,6 +11,7 @@
 		<class>org.nsys.daemon.entity.UserEntity</class>
 		<class>org.nsys.daemon.entity.UserAttributeEntity</class>
 		<class>org.nsys.iot.hackhouse.core.entity.DeviceEntity</class>
+		<class>org.nsys.iot.hackhouse.core.entity.DeviceSensorEntity</class>
 		<class>org.nsys.iot.hackhouse.core.entity.SensorEntity</class>
     </persistence-unit>
 

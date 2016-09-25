@@ -30,7 +30,11 @@ import org.nsys.daemon.user.UserManager;
 import org.nsys.portal.controller.PortalAdminController;
 
 import org.nsys.iot.hackhouse.core.model.Device;
+import org.nsys.iot.hackhouse.core.model.DeviceSensor;
+import org.nsys.iot.hackhouse.core.model.Sensor;
+import org.nsys.iot.hackhouse.core.repository.DeviceSensorService;
 import org.nsys.iot.hackhouse.core.repository.DeviceService;
+import org.nsys.iot.hackhouse.core.repository.SensorService;
 import org.nsys.iot.hackhouse.portal.webapp.utils.ValidatorUtils;
 
 /**
@@ -43,12 +47,18 @@ import org.nsys.iot.hackhouse.portal.webapp.utils.ValidatorUtils;
 @RequestMapping("/device")
 public class DeviceMgmtController extends PortalAdminController {
 	private DeviceService deviceService;
+	private DeviceSensorService deviceSensorService;
+	private SensorService sensorService;
 	private UserManager userManager;
 
 	private static final String LOCATION_HEADER_ACTIONS = "hackhouse.header.actions.device-mgmt";
+	private static final String LOCATION_HEADER_ACTIONS_SENSOR = "hackhouse.header.actions.device-sensor-mgmt";
 	private static final String DISPLAY_NAME = "Device Management";
+	private static final String DISPLAY_NAME_SENSOR = "Device Sensor Management";
 	private static final String DEVICE_ADD_SUCCESS = "nsys.hackhouse.device.mgmt.deviceAddSuccess";
 	private static final String DEVICE_ADD_NAME = "nsys.hackhouse.device.mgmt.deviceAddName";
+	private static final String SENSOR_ADD_SUCCESS = "nsys.hackhouse.device.mgmt.sensorAddSuccess";
+	private static final String SENSOR_ADD_NAME = "nsys.hackhouse.device.mgmt.sensorAddName";
 
 	private static final int DEFAULT_PORT    = 80;
 	private static final int MAX_PORT_NUMBER = 65535;
@@ -66,6 +76,22 @@ public class DeviceMgmtController extends PortalAdminController {
 		}
 
 		return deviceService;
+	}
+
+	public DeviceSensorService getDeviceSensorService() {
+		if (deviceSensorService == null) {
+			deviceSensorService = ComponentProvider.getInstance().getComponent(DeviceSensorService.class);
+		}
+
+		return deviceSensorService;
+	}
+
+	public SensorService getSensorService() {
+		if (sensorService == null) {
+			sensorService = ComponentProvider.getInstance().getComponent(SensorService.class);
+		}
+
+		return sensorService;
 	}
 
 	public UserManager getUserManager() {
@@ -129,7 +155,7 @@ public class DeviceMgmtController extends PortalAdminController {
 		context.put("action", "add");
 		context.put("actionButton", BUTTON_ADD);
 		context.put("defaultPort", DEFAULT_PORT);
-		context.put("redir", redir);			
+		context.put("redir", redir);
 
 		return renderFragment("/templates/device-edit.vm", context, request, response);
 	}
@@ -202,6 +228,7 @@ public class DeviceMgmtController extends PortalAdminController {
 			final HttpServletRequest request,
 			final HttpServletResponse response) {
 
+		getDeviceSensorService().removeByDeviceId(deviceId);
 		getDeviceService().remove(getDeviceService().get(deviceId));
 
 		return showDevices(request, response);
@@ -267,6 +294,99 @@ public class DeviceMgmtController extends PortalAdminController {
 		//log.debugFormat("JSON=%s", json);
 
 		return json;
+	}
+
+	@RequestMapping(value = "/{deviceId}/sensors", method = RequestMethod.GET)
+	public ModelAndView showDeviceSensors(
+			final @PathVariable("deviceId") long deviceId,
+			final HttpServletRequest request,
+			final HttpServletResponse response) {
+
+		Map<String, Object> context = new HashMap<String, Object>();
+		context.put("deviceSensors", getDeviceSensorService().getByDeviceId(deviceId));
+		context.put("deviceId", deviceId);
+
+		if (request.getSession().getAttribute(SENSOR_ADD_SUCCESS) != null &&
+			request.getSession().getAttribute(SENSOR_ADD_NAME) != null) {
+			boolean sensorAddSuccess = (boolean) request.getSession().getAttribute(SENSOR_ADD_SUCCESS);
+			String sensorAddName = (String) request.getSession().getAttribute(SENSOR_ADD_NAME);
+
+			String sensorAddMessage = 
+					sensorAddSuccess ? 
+							String.format("Sensor '%s' has been added successfully!", sensorAddName) :
+							String.format("Unable to add sensor '%s'!", sensorAddName);
+
+			context.put("sensorAddSuccess", sensorAddSuccess);
+			context.put("sensorAddMessage", sensorAddMessage);
+
+			request.getSession().removeAttribute(SENSOR_ADD_SUCCESS);
+			request.getSession().removeAttribute(SENSOR_ADD_NAME);
+		}
+
+		String imageUri = String.format("%s/resources/images/nsys_logo_avatar.png", request.getContextPath());
+
+		setDisplayName(DISPLAY_NAME_SENSOR);
+		showHeader(imageUri, LOCATION_HEADER_ACTIONS_SENSOR, null);
+
+		return render("/templates/device-sensor-mgmt.vm", context, request, response);
+	}
+
+	@RequestMapping(value = "/{deviceId}/sensors/add", method = RequestMethod.GET)
+	@ResponseBody
+	public String showAddDeviceSensor(
+			final @PathVariable("deviceId") long deviceId,
+			final @RequestParam("redir") String redir,
+			final HttpServletRequest request,
+			final HttpServletResponse response) {
+
+		Map<String, Object> context = new HashMap<String, Object>();
+		context.put("sensors", getSensorService().getAll());
+		context.put("deviceId", deviceId);
+		context.put("redir", redir);
+
+		return renderFragment("/templates/device-sensor-add.vm", context, request, response);
+	}
+
+	@RequestMapping(value = "/{deviceId}/sensors/add", method = RequestMethod.POST)
+	public ModelAndView processAddDeviceSensor(
+			final @PathVariable("deviceId") long deviceId,
+			final HttpServletRequest request,
+			final HttpServletResponse response) {
+
+		String redir = request.getParameter("redir");
+		String sensorName = request.getParameter("sensor");
+
+		Device device = getDeviceService().get(deviceId);
+		Sensor sensor = getSensorService().getByName(sensorName);
+
+		if (device != null && sensor != null &&
+			(getDeviceSensorService().getByDeviceIdAndSensorId(device.getId(), sensor.getId()) == null)) {
+
+			DeviceSensor deviceSensor = new DeviceSensor();
+			deviceSensor.setDevice(device);
+			deviceSensor.setSensor(sensor);
+
+			request.getSession().setAttribute(SENSOR_ADD_SUCCESS, false);
+			request.getSession().setAttribute(SENSOR_ADD_NAME, sensor.getName());
+
+			if (getDeviceSensorService().add(deviceSensor) != null) {
+				request.getSession().setAttribute(SENSOR_ADD_SUCCESS, true);
+			}
+		}
+
+		return new ModelAndView(String.format("redirect:%s", redir));
+	}
+
+	@RequestMapping(value = "/{deviceId}/sensors/{deviceSensorId}/remove", method = RequestMethod.GET)
+	public ModelAndView processRemoveDeviceSensor(
+			final @PathVariable("deviceId") long deviceId,
+			final @PathVariable("deviceSensorId") long deviceSensorId,
+			final HttpServletRequest request,
+			final HttpServletResponse response) {
+
+		getDeviceSensorService().remove(getDeviceSensorService().get(deviceSensorId));
+
+		return new ModelAndView(String.format("redirect:/device/%d/sensors", deviceId));
 	}
 
 	protected List<String> getProtocols() {

@@ -1,0 +1,38 @@
+$portalResourceManager.requireResourcesForContext("nsys.hackhouse.device-sensor-management")
+
+#parse ("macros.vm")
+
+#if ($!{sensorAddSuccess})
+	#showMessage("success", "Success!", $!{sensorAddMessage}, true)
+
+#elseif ($!{sensorAddFailed})
+	#showMessage("error", "Adding sensor has failed!", $!{sensorAddMessage}, true)
+#end
+
+<table class="aui">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+   	<tbody>
+        #foreach ($deviceSensor in $deviceSensors)
+		#set ($msgRemove = "Are you really sure you want to remove the sensor '$!{deviceSensor.sensor.name}' from device?")
+        <tr>
+            <td><span class="aui-lozengeaui-lozenge-success aui-lozenge-subtle">$!{deviceSensor.sensor.name}</span></td>
+            <td>$!{deviceSensor.sensor.description}</td>
+            <td>
+            	<a href="$!{request.contextPath}/device/${deviceSensor.device.id}/sensors/${deviceSensor.id}/remove"
+            	   class="portal-dialog2"
+            	   data-dialog-size="medium"
+            	   data-dialog-title="Remove Sensor"
+            	   data-dialog-button="Remove Sensor"
+            	   data-dialog-style="portal-dialog2-red">
+            		<span class="aui-lozenge aui-lozenge-error">Remove</span><div class="portal-dialog2-content"><p>$!{msgRemove}</p></div></a>
+            </td>
+        </tr>
+        #end
+    </tbody>
+</table>

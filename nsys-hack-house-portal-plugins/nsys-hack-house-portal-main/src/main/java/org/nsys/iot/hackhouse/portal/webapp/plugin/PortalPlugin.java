@@ -15,6 +15,9 @@ import org.nsys.system.ServiceProvider;
 
 import org.nsys.iot.hackhouse.core.CoreConfig;
 import org.nsys.iot.hackhouse.core.repository.DeviceService;
+import org.nsys.iot.hackhouse.core.repository.SensorService;
+import org.nsys.iot.hackhouse.core.sensor.SensorManager;
+import org.nsys.iot.hackhouse.core.sensor.SensorManagerImpl;
 import org.nsys.iot.hackhouse.portal.webapp.PortalConfig;
 
 /**
@@ -34,9 +37,7 @@ public class PortalPlugin extends AbstractManagementAgentPlugin {
 		DataRepositoryConfig config = dbManager.newRepositoryConfig(CoreConfig.REPOSITORY_NAME, getClass().getClassLoader());
 		dbManager.addRepositoryConfig(CoreConfig.REPOSITORY_NAME, config);
 
-		DeviceService deviceService = new DeviceService();
-
-		NsysDaemonUtils.addGlobalComponent(DeviceService.class, deviceService);
+		addComponents();
 	}
 
 	@Override
@@ -58,5 +59,15 @@ public class PortalPlugin extends AbstractManagementAgentPlugin {
 				getLog().info("The system is up and running!");
 			}
 		}
+	}
+
+	protected void addComponents() {
+		DeviceService deviceService = new DeviceService();
+		SensorService sensorService = new SensorService();
+		SensorManager sensorManager = new SensorManagerImpl();
+
+		NsysDaemonUtils.addGlobalComponent(DeviceService.class, deviceService);
+		NsysDaemonUtils.addGlobalComponent(SensorService.class, sensorService);
+		NsysDaemonUtils.addGlobalComponent(SensorManager.class, sensorManager);
 	}
 }

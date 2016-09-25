@@ -1,0 +1,24 @@
+#parse ("macros.vm")
+
+<table class="aui">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Label</th>
+			<th>Description</th>
+            <th>Enabled</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+   	<tbody>
+        #foreach ($sensor in $sensors)
+        <tr>
+            <td><span class="aui-lozenge aui-lozenge-success aui-lozenge-subtle">$!{sensor.name}</span></td>
+            <td>$!{sensor.label}</td>
+            <td>$!{sensor.description}</td>
+            <td><span class="aui-lozenge aui-lozenge-current aui-lozenge-subtle">$!{sensor.enabled}</span></td>
+            <td>N/A</td>
+        </tr>
+        #end
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nsys-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugin-version="1">
+
+    <!-- Plugin Info -->
+    
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${build.number}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}" />
+	</plugin-info>
+
+	<!-- Plugin Modules -->
+
+	<management-agent key="nsys-hack-house-modules" name="Nsys #HackTheHouse Plugin Modules" class="org.nsys.iot.hackhouse.modules.plugin.HackHouseModulesPlugin">
+		<dependency>org.nsys.daemon:scheduler</dependency>
+	</management-agent>
+
+</nsys-plugin>

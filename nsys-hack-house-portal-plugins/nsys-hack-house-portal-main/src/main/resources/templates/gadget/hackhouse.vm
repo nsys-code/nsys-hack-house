@@ -7,5 +7,9 @@ $portalResourceManager.requireResourcesForContext("nsys.portal.admin")
 			<a href="/device/management" id="hackhouse-device-mgmt" title="#HackTheHouse Device Management">Device Management</a>
 			<span class="description">#HackTheHouse Device Management</span>
 		</li>
+		<li>
+			<a href="/sensor/adapters" id="hackhouse-sensor-mgmt" title="#HackTheHouse Sensor Adapters">Sensor Adapters</a>
+			<span class="description">#HackTheHouse Sensor Adapters</span>
+		</li>
 	</ul>
 </section>

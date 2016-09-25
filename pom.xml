@@ -46,6 +46,7 @@
 		<module>nsys-hack-house-core</module>
 		<module>nsys-hack-house-daemon-plugins</module>
 		<module>nsys-hack-house-portal-plugins</module>
+		<module>nsys-hack-house-adapters</module>
 		<module>nsys-hack-house-bundle</module>
 	</modules>
 	

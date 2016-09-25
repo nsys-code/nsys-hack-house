@@ -12,9 +12,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
-    <groupId>org.nsys.iot.hackhouse.daemon</groupId>
-    <artifactId>nsys-hack-house-daemon-plugins</artifactId>
-    <name>Nsys #HackTheHouse Daemon Plugins</name>
+    <groupId>org.nsys.iot.hackhouse</groupId>
+    <artifactId>nsys-hack-house-adapters</artifactId>
+    <name>Nsys #HackTheHouse Adapters</name>
     <packaging>pom</packaging>
     <url>http://nsys.org</url>
     
@@ -33,7 +33,6 @@
     </scm>
 
     <modules>
-        <module>nsys-hack-house-modules</module>
-        <!-- <module>nsys-hack-house-collector</module> -->
+        <module>nsys-hack-house-virtual-sensors</module>
     </modules>
 </project>

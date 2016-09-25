@@ -188,22 +188,27 @@
 		<link>/device/management</link>
 	</navigation-item>
 
+	<navigation-item key="nsys-hack-house-portal_sensor-adapter" name="Sensor Adapters" section="system.admin/hackhouse" weight="0">
+		<label>Sensor Adapters</label>
+		<link>/sensor/adapters</link>
+	</navigation-item>
+
     <!-- Navigation 'system.admin/hackhouse' [END] -->
 
-    <!-- Navigation 'hackhouse.header.actions' [BEGIN] -->
+    <!-- Navigation 'hackhouse.header.actions.device-mgmt' [BEGIN] -->
 
-	<navigation-section key="nsys-hack-house_hackhouse-header-actions" name="#HackTheHouse Header Actions" location="hackhouse.header.actions" weight="0">
-		<label>#HackTheHouse Header Actions</label>
+	<navigation-section key="nsys-hack-house_hackhouse-header-actions-device-mgmt" name="#HackTheHouse Header Actions for Device Management" location="hackhouse.header.actions.device-mgmt" weight="0">
+		<label>#HackTheHouse Header Actions for Device Management</label>
 	</navigation-section>
 
-	<navigation-item key="nsys-hack-house_hackhouse-header-actions_add-device" name="Add Device" section="hackhouse.header.actions" weight="0">
+	<navigation-item key="nsys-hack-house_hackhouse-header-actions-device-mgmt_add-device" name="Add Device" section="hackhouse.header.actions.device-mgmt" weight="0">
 		<label>Add Device</label>
 		<link>/device/add</link>
 		<styleClass>portal-dialog</styleClass>
 		<param name="portalDialog">data-dialog-width="600" data-dialog-height="480"</param>
 	</navigation-item>
 
-    <!-- Navigation 'hackhouse.header.actions' [END] -->    
+    <!-- Navigation 'hackhouse.header.actions.device-mgmt' [END] -->    
 
     <!-- Nsys #HackTheHouse Web Resources [BEGIN] -->
 
@@ -233,7 +238,7 @@
     <admin-gadget key="nsys-hack-house-portal_admin-gadget-hackhouse" name="#HackTheHouse Admin Gadget" class="org.nsys.iot.hackhouse.portal.webapp.gadget.HackHouseGadget">
     	<description>Provides an overview for the #HackTheHouse gadget.</description>
     	<label>#HackTheHouse</label>
-    	<column>left</column>
+    	<column>right</column>
     	<order>1</order>
     </admin-gadget>
 

@@ -25,6 +25,7 @@ import org.nsys.util.ModelHelper;
 import org.nsys.util.StringUtils;
 import org.nsys.daemon.core.HostNode;
 import org.nsys.daemon.model.ResponseData;
+import org.nsys.daemon.user.DefaultUser;
 import org.nsys.daemon.user.UserManager;
 import org.nsys.portal.controller.PortalAdminController;
 
@@ -44,7 +45,7 @@ public class DeviceMgmtController extends PortalAdminController {
 	private DeviceService deviceService;
 	private UserManager userManager;
 
-	private static final String LOCATION_HEADER_ACTIONS = "hackhouse.header.actions";
+	private static final String LOCATION_HEADER_ACTIONS = "hackhouse.header.actions.device-mgmt";
 	private static final String DISPLAY_NAME = "Device Management";
 	private static final String DEVICE_ADD_SUCCESS = "nsys.hackhouse.device.mgmt.deviceAddSuccess";
 	private static final String DEVICE_ADD_NAME = "nsys.hackhouse.device.mgmt.deviceAddName";
@@ -88,10 +89,8 @@ public class DeviceMgmtController extends PortalAdminController {
 			final HttpServletRequest request,
 			final HttpServletResponse response) {
 
-		DeviceService deviceService = ComponentProvider.getInstance().getComponent(DeviceService.class);
-
 		Map<String, Object> context = new HashMap<String, Object>();
-		context.put("devices", deviceService.getAll());
+		context.put("devices", getDeviceService().getAll());
 
 		if (request.getSession().getAttribute(DEVICE_ADD_SUCCESS) != null &&
 			request.getSession().getAttribute(DEVICE_ADD_NAME) != null) {
@@ -115,7 +114,7 @@ public class DeviceMgmtController extends PortalAdminController {
 		setDisplayName(DISPLAY_NAME);
 		showHeader(imageUri, LOCATION_HEADER_ACTIONS, null);
 
-		return render("/templates/device-mgmt.vm", context, request, response);		
+		return render("/templates/device-mgmt.vm", context, request, response);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -143,16 +142,18 @@ public class DeviceMgmtController extends PortalAdminController {
 		Device device = ModelHelper.create(request, Device.class);
 		String redir = request.getParameter("redir");
 
-		if (device.getPort() < 1 || device.getPort() > MAX_PORT_NUMBER) {
-			device.setPort(DEFAULT_PORT);
-		}
+		if (device != null) {
+			device.setOwner((DefaultUser) getUserManager().getLoggedInUser(request));
 
-		DeviceService deviceService = ComponentProvider.getInstance().getComponent(DeviceService.class);
+			if (device.getPort() < 1 || device.getPort() > MAX_PORT_NUMBER) {
+				device.setPort(DEFAULT_PORT);
+			}
+		}
 
 		request.getSession().setAttribute(DEVICE_ADD_SUCCESS, false);
 		request.getSession().setAttribute(DEVICE_ADD_NAME, device.getName());
 
-		if (deviceService.add(device) != null) {
+		if (getDeviceService().add(device) != null) {
 			request.getSession().setAttribute(DEVICE_ADD_SUCCESS, true);
 		}
 

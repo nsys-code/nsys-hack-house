@@ -112,6 +112,8 @@
 								<copy file="${project.basedir}/../nsys-hack-house-core/target/nsys-hack-house-core.jar" todir="${project.basedir}/target/${nsys.dist.name}/lib" />
 
 								<!-- Copy Nsys Daemon plugins to folder /plugins -->
+								<copy file="${project.basedir}/../nsys-hack-house-daemon-plugins/nsys-hack-house-modules/target/nsys-hack-house-modules.jar" todir="${project.basedir}/target/${nsys.dist.name}/plugins" />
+								<copy file="${project.basedir}/../nsys-hack-house-adapters/nsys-hack-house-virtual-sensors/target/nsys-hack-house-virtual-sensors.jar" todir="${project.basedir}/target/${nsys.dist.name}/plugins" />
 								<!-- <copy file="${project.basedir}/../nsys-hack-house-daemon-plugins/nsys-hack-house-collector/target/nsys-hack-house-collector.jar" todir="${project.basedir}/target/${nsys.dist.name}/plugins" /> -->
 
 								<!-- Copy Nsys Portal plugins to folder /portal/plugins -->

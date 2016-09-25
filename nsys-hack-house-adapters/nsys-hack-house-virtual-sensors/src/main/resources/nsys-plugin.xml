@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nsys-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugin-version="1">
+
+    <!-- Plugin Info -->
+
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${build.number}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}" />
+	</plugin-info>
+
+	<!-- Plugin Modules -->
+
+	<management-agent key="nsys-hack-house-virtual-sensors" name="Nsys #HackTheHouse Virtual Sensors Adapter" class="org.nsys.iot.hackhouse.adapter.virtualsensors.plugin.AdapterPlugin">
+		<dependency>org.nsys.daemon:scheduler</dependency>
+	</management-agent>
+
+	<sensor-adapter key="virtual-sensor-temperature-humidity"
+		name="Virtual Temperature and Humidity Sensor"
+		class="org.nsys.iot.hackhouse.adapter.virtualsensors.driver.TemperatureHumidityAdapterDriver"
+		enabled="true"
+		override="false">
+		<description>Virtual temperature and humidity sensor for testing and verification.</description>
+	</sensor-adapter>
+
+</nsys-plugin>

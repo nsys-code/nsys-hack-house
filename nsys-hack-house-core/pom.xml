@@ -29,8 +29,16 @@
     </issueManagement>
     
     <scm>
-    	<connection>scm:git:https://github.com/xboot-dev/nsys-hack-house.git</connection>
+    	<connection>scm:git:https://github.com/nsys-code/nsys-hack-house.git</connection>
     </scm>
+
+	<developers>
+		<developer>
+			<id>xboot</id>
+			<name>Tomas Hrdlicka</name>
+			<email>tomas@hrdlicka.co.uk</email>
+		</developer>
+	</developers>
 
 	<repositories>
 		<repository>

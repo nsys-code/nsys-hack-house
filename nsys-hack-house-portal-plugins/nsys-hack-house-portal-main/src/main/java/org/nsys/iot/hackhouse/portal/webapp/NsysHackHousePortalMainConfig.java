@@ -1,4 +1,4 @@
-/* Copyright 2016 Nsys #HackTheHouse - Tomas Hrdlicka <tomas@hrdlicka.co.uk>. All rights reserved.
+/* Copyright 2016, 2017 Nsys #HackTheHouse - Tomas Hrdlicka <tomas@hrdlicka.co.uk>. All rights reserved.
  */
 
 package org.nsys.iot.hackhouse.portal.webapp;
@@ -26,7 +26,7 @@ public class NsysHackHousePortalMainConfig extends AbstractPortalConfig {
 	}
 
 	protected String getCopyrightHtml() {
-		String html = "Copyright &copy; 2016 <a href=\"http://tomas.hrdlicka.co.uk\" title=\"Tomas Xboot Hrdlicka\">Tomas Hrdlicka</a>";
+		String html = "Copyright &copy; 2016, 2017 <a href=\"http://tomas.hrdlicka.co.uk\" title=\"Tomas Xboot Hrdlicka\">Tomas Hrdlicka</a>";
 		return html;
 	}
 }
